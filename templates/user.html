@@ -1,0 +1,21 @@
+{% extends "application.html" %}
+
+{% block html_attribs %} lang="pt-BR" {% endblock %}
+
+{% block title %}New User{% endblock %}
+{% block content %}
+<section class="container">
+    <div>
+        <h2>New User</h2>
+    </div>
+    <form action="/user" class="form-inline" method="post">
+        <div class="form-group">
+                <input type="text" class="form-control" name="username" id="">
+                <input type="password" class="form-control" name="password" id="">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+    </form>
+    <span>{{msg}}</span>
+</section>
+
+{% endblock %}

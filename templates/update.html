@@ -1,0 +1,35 @@
+{% extends "application.html" %}
+
+{% block html_attribs %} lang="pt-BR" {% endblock %}
+
+{% block title %}Update{% endblock %}
+
+{% block content %}
+<div class="container">
+   <div class="page-header">
+      <h1 class="text-center text-primary">Update Task</h1>
+   </div>
+
+   <form class="form-inline" action="/update/{{task.id}}" method="POST">
+      <div class="form-group">
+         <label for="description">Task</label>
+         <input type="text" class="form-control" name="description" id="description" value="{{task.description}}">
+         <input class="form-control" type="time" name="hours" value="{{task.hours}}" placeholder="Estimated time">   
+         <select class="form-control" name="situation">
+               <option selected value="{{task.situation}}">{{task.situation}}</option>
+               <option value="To do">To do</option>
+               <option value="Doing">Doing</option>
+               <option value="Done">Done</option>
+         </select>
+         <select class="form-control" name="categoryid">
+            <option value="{{categorys[task.category_id-1].id}}" name="{{categorys[task.category_id-1].name}}">{{categorys[task.category_id-1].name}}</option>
+            {% for category in categorys %}   
+             <option value="{{category.id}}" name="categoryid">{{category.name}}</option>
+            {% endfor %}
+          </select>
+         <button type="submit" class="btn btn-primary">Update</button>
+         <a class="btn btn-danger" href="/">Cancel</a>
+      </div>
+   </form>
+</div>
+{% endblock %}

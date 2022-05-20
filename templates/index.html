@@ -1,0 +1,117 @@
+{% extends "application.html" %}
+
+{% block html_attribs %} lang="pt-BR" {% endblock %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+<div class="container">
+   <div class="page-header">
+      <h1 class="text-center text-primary">ToDo: Never forget your duties</h1>
+   </div>
+   <div>
+      {% if username != "" %}
+      <p> Connected User: {{username}}</p>
+      <p> If you want to leave <a href="/logout">logout</a></p>
+      {% else %}
+      <p>You are not logged in!</p>
+      <p><a href="/login">Click here to login!</a></p>
+      {% endif %}
+  
+   </div>
+   {% if username != "" %}
+   {% if tasks|length < 1 %} <h4 class="text-center text-warning">There are no tasks. Create one below!</h4>
+      {% else %}
+      {% for category in categorys %}
+ 
+      <table class="table table-striped">
+
+         <thead>
+   
+            <tr>
+               <th>Description</th>
+               <th>Created</th>
+               <th>Situation</th>
+               <th>Estimated time</th>
+               <th>Initial time</th>
+               <th>Time spent</th>               
+               <th>Actions</th>
+
+            </tr>
+         </thead>
+         <div>
+            <h2>Category: {{category.name}}</h2>
+         </div>
+         <tbody>
+            {% for task in tasks %}
+            
+            {% if category.id == task.category_id %}
+            <tr>
+               <td class="align-middle">{{ task.description }}</td>
+               <td class="align-middle">{{ task.date_created.strftime("%d/%m/%Y") }}</td>
+               <td>{{task.situation}}</td>
+               <td>{{task.hours}}</td>
+
+               {% if task.situation == "Done" or task.situation == "Doing" %}
+               <td class="align-middle">{{ task.date_initial.strftime("%d/%m/%Y %H:%M") }}</td>
+               {% else %}
+               <td class="align-middle"></td>
+               {% endif %}
+
+               {% if task.situation == "Done"%}
+               <td class="align-middle">{{ timespent(task) }}</td>
+               {% else %}
+               <td class="align-middle"></td>
+               {% endif %}
+               
+               <td class="align-middle actions">
+                  <a class="btn btn-success" href="/update/{{task.id}}">Update</a> |
+                  <a class="btn btn-danger" href="/delete/{{task.id}}">Delete</a>
+               </td> 
+                              
+            </tr>
+            {% endif %}
+            {% endfor %}
+
+         </tbody>
+         {% endfor %}
+      </table>
+      {% endif %}
+
+      
+      <form class="form-inline" action="/" method="POST">
+         <div class="form-group">
+            <label for="description"></label>
+            <input type="text" class="form-control" name="description" id="description">
+            <input class="form-control" type="time" name="hours" value="00:01" placeholder="Estimated time">
+            <select class="form-control" name="situation">
+               <option selected value="To do">To do</option>
+               <option value="Doing">Doing</option>
+               <option value="Done">Done</option>
+             </select>
+
+             <select class="form-control" name="categoryid">
+               {% for category in categorylist %}
+                  
+                <option value="{{category.id}}" name="categoryid">{{category.name}}</option>
+               {% endfor %}
+             </select>
+
+            <button type="submit" class="btn btn-primary" >Add Task</button>
+         </div>
+      </form>
+      <br />
+      <form class="form-inline" action="/category" method="POST">
+         <div class="form-group">
+            <label for="category"></label>
+            <input type="text" class="form-control" name="category" id="category">
+            <button type="submit" class="btn btn-primary" >Add Category</button>
+         </div>
+      </form>
+
+      <br />
+      {% endif %}
+</div>
+
+{% endblock %}
