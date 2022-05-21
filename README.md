@@ -1,3 +1,8 @@
+
+# usuários para facilitar testes
+# usuario admin senha admin
+# usuario abc  senha abc
+
 # ToDO
 
 ToDo is a simple task manager coded in Python and Flask.

@@ -12,11 +12,11 @@
    </div>
    <div>
       {% if username != "" %}
-      <p> Connected User: {{username}}</p>
-      <p> If you want to leave <a href="/logout">logout</a></p>
+      <h3> Connected User: {{username}}</h3>
+      <h3> If you want to leave <a href="/logout">logout</a></h3>
       {% else %}
-      <p>You are not logged in!</p>
-      <p><a href="/login">Click here to login!</a></p>
+      <h3>You are not logged in!</h3>
+      <h3><a href="/login">Click here to login!</a></h3>
       {% endif %}
   
    </div>

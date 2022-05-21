@@ -11,3 +11,4 @@ class Category (db.Model):
     def __repr__(self):
         """override __repr__ method"""
         return f"Task: #{self.id}, content: {self.name}"
+

@@ -5,5 +5,5 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 @REM  usuários para facilitar testes
-@REM  usuario igor senha 123
-@REM  usuario abc  senha 123
+@REM  usuario admin senha admin
+@REM  usuario abc  senha abc
